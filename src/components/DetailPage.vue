@@ -30,7 +30,6 @@ export default {
 
   data() {
     return {
-      titre: "Rennes",
       temperature: 28,
       potable: true
     }

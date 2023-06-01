@@ -33,51 +33,36 @@ export default{
     }
   },
 
-  mounted(){
-    this.getGeo()
+  created(){
+    const success = (position) => {
+      const latitude  = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      let requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+
+      fetch(`https://geo.api.gouv.fr/communes?lat=${latitude}&lon=${longitude}&fields=nom`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          let response = JSON.parse(result)
+          this.titre = response[0]['nom'];
+        })
+        .catch(error => console.log('error', error));
+    };
+
+    const error = (err) => {
+      console.log(err)
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error);
   },
 
   methods: {
     getVille(ville){
-      this.titre = ville.nom
+      this.titre = ville['nom']
     },
-
-    getGeo(){
-      let resultat = "patate"
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-      };
-
-      function success(pos) {
-        const crd = pos.coords;
-
-        var requestOptions = {
-          method: 'GET',
-          redirect: 'follow'
-        };
-
-        fetch(`https://geo.api.gouv.fr/communes?lat=${crd.latitude}&lon=${crd.longitude}&fields=code,nom,codesPostal`, requestOptions)
-          .then(response => response.text())
-          .then(result => {
-            console.log("dans fetch :",resultat)
-            this.titre = result;
-          })
-          .catch(error => console.log('error', error));
-
-          return resultat
-      }
-
-      function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      }
-
-      console.log("before result: ",resultat);
-      navigator.geolocation.getCurrentPosition(success, error, options);
-      console.log("after result: ",resultat);
-      return resultat;
-    }
   }
 };
 </script>

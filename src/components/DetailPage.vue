@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <v-row justify="center" class="mt-5">
       <v-col cols="12" class="text-center">
         <span class="text-h4">{{ titre }}</span>

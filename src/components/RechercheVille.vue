@@ -8,7 +8,11 @@
     @update:search="search_city"
     @update:modelValue="select_city"
     variant="solo"
-  ></v-autocomplete>
+  >
+    <template #prepend-inner>
+      <v-icon icon="mdi-magnify"/>
+    </template>
+  </v-autocomplete>
 </template>
 
 <script>

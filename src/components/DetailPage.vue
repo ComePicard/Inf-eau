@@ -1,19 +1,5 @@
 <template>
   <v-container>
-    <v-row justify="center" class="mt-5">
-      <v-col cols="12" class="text-center">
-        <span class="text-h4">{{ titre }}</span>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="11" class="d-flex justify-center align-center">
-        <v-autocomplete placeholder="Rechercher" variant="solo" class="my-input">
-          <template #prepend-inner>
-            <v-icon icon="mdi-magnify" />
-          </template>
-        </v-autocomplete>
-      </v-col>
-    </v-row>
     <v-card class="mx-1">
       <v-row class="ma-1" justify="space-between">
         <v-col cols="8" class="text-body-1" align-self="center">Température :</v-col>

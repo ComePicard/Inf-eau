@@ -1,6 +1,7 @@
 <template>
   <v-autocomplete
-    label="Autocomplete"
+    label="Rechercher"
+    placeholder="Bourg-En-Bresse"
     v-model="ville"
     id="search"
     :items="searched"

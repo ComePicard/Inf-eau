@@ -16,6 +16,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/detail',
+    component: () => import('@/components/DetailPage.vue')
+  }
 ]
 
 const router = createRouter({

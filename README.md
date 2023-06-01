@@ -1,4 +1,6 @@
-# base
+# Inf'Eau
+
+Projet d'analyse de la qualité de l'eau réalisé dans le cadre du Challenge 48h de Rennes Ynov Campus.
 
 ## Project setup
 
@@ -8,9 +10,6 @@ yarn
 
 # npm
 npm install
-
-# pnpm
-pnpm install
 ```
 
 ### Compiles and hot-reloads for development
@@ -21,9 +20,6 @@ yarn dev
 
 # npm
 npm run dev
-
-# pnpm
-pnpm dev
 ```
 
 ### Compiles and minifies for production

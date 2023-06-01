@@ -31,6 +31,7 @@ export default {
       for (let i = 0; i < this.parsed_searched.length; i++) {
         if (this.parsed_searched[i].nom === this.ville) {
           this.ville_data= this.parsed_searched[i]
+          this.$emit('searched', this.ville_data)
         }
       }
     },

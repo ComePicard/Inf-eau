@@ -8,7 +8,7 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="11" class="d-flex justify-center align-center">
-        <RechercheVille/>
+        <RechercheVille @searched="getVille"/>
       </v-col>
     </v-row>
     <DetailPage/>
@@ -27,9 +27,15 @@ export default{
     RechercheVille
   },
 
-  date(){
+  data(){
     return {
       titre: "",
+    }
+  },
+
+  methods: {
+    getVille(ville){
+      this.titre = ville.nom
     }
   }
 };

@@ -16,6 +16,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/detail',
+    component: () => import('@/components/DetailPage.vue')
+  },
+  {
+    path: '/test',
+    component: () => import('@/views/Test.vue')
+  }
 ]
 
 const router = createRouter({

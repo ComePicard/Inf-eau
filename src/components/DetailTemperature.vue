@@ -1,72 +1,73 @@
 <template>
-  <v-card class="mx-1">
-    {{ temperature }}
+  <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
+  <v-card v-else class="mx-1 mt-2">
+    <v-row class="ma-1" justify="space-between">
+      <v-col cols="8" class="text-body-1" align-self="center">Température :</v-col>
+      <v-col cols="4" class="text-h5" :style='getColorFromTemperature()'>{{ temperature }}°</v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script>
 export default {
   name: "DetailTemperature",
+
   props: {
     latitude: {
       type: Number,
-      required: false
+      default: null
     },
     longitude: {
       type: Number,
-      required: false
+      default: null
     }
   },
 
   data() {
     return {
       coursDeau: [],
-      qualite: [],
       temperature: null,
-      potable: true
+      loading: true,
     }
   },
 
-  created() {
-    this.getTemperature()
+  watch:{
+    async latitude(newVal, oldVal) {
+      if(oldVal !== newVal){
+        this.temperature = 0
+        await this.getTemperature(newVal, this.longitude)
+      }
+    }
+  },
+
+  async mounted() {
+    await this.getTemperature(this.latitude, this.longitude)
   },
 
   methods: {
-    getTemperature() {
-      fetch(`https://hubeau.eaufrance.fr/api/v1/temperature/chronique?distance=10&latitude=${this?.latitude}&longitude=${this?.longitude}&size=1&sort=desc`)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          if (data.data.length > 0) {
-            this.coursDeau = data.data;
-            this.temperature = coursDeau[0].temperature;
-            const codeCommune = data.data[0].code_commune;
+    async getTemperature(latitude, longitude) {
+      if(latitude!==null && longitude!==null){
+        const response = await fetch(`https://hubeau.eaufrance.fr/api/v1/temperature/chronique?distance=20&latitude=${latitude}&longitude=${longitude}&size=1&sort=desc`);
+        const data = await response.json();
 
-            fetch(`https://hubeau.eaufrance.fr/api/v1/qualite_eau_potable/resultats_dis/?code_commune=${codeCommune}&size=1&sort=desc`)
-              .then(response => response.json())
-              .then(qualiteData => {
-                console.log(qualiteData);
+        if (data?.data.length > 0) {
+          this.coursDeau = data.data;
+          this.temperature = this.coursDeau[0].resultat.toFixed(1);
+        } else {
+          this.coursDeau = [];
+        }
+        this.loading = false
+      }
+      else {
+        this.loading = true
+      }
+    },
 
-                if (qualiteData.data.length > 0) {
-                  this.qualite = qualiteData.data[0].conclusion_conformite_prelevement;
-                  console.log(this.qualite);
-                } else {
-                  this.qualite = '';
-                }
-
-                this.isLoading = false; // Terminé de charger
-              })
-              .catch(error => {
-                console.error(error);
-                this.qualite = '';
-                this.isLoading = false; // Terminé de charger
-              });
-          } else {
-            this.coursDeau = [];
-            this.qualite = '';
-            this.isLoading = false; // Terminé de charger
-          }
-        })
+    getColorFromTemperature() {
+      let color = this.temperature < 20 ? 'blue' :
+        this.temperature < 26 ? 'orange' :
+          'red'
+      return "color: " + color
     }
   }
 }

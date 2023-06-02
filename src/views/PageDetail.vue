@@ -11,7 +11,7 @@
         <RechercheVille @searched="getVille" />
       </v-col>
     </v-row>
-    <DetailTemperature :longitude="longitude" :latitude="latitude" />
+    <DetailTemperature :longitude="longitude" :latitude="latitude"/>
     <DetailPotabilite />
     <DetailQualite />
     <DetailPage />
@@ -73,6 +73,9 @@ export default {
   methods: {
     getVille(ville) {
       this.ville = ville['nom']
+      this.longitude = ville['centre']['coordinates'][0]
+      this.latitude = ville['centre']['coordinates'][1]
+      console.log(this.latitude, this.longitude);
     },
   }
 };

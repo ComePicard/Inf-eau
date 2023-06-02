@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
     <DetailTemperature :longitude="longitude" :latitude="latitude"/>
-    <DetailPotabilite />
+    <DetailPotabilite :code_postal="code" />
     <DetailQualite />
     <DetailPage />
   </v-container>
@@ -41,6 +41,7 @@ export default {
       ville: "",
       latitude: null,
       longitude: null,
+      code: null
     }
   },
 
@@ -54,11 +55,13 @@ export default {
         redirect: 'follow'
       };
 
-      fetch(`https://geo.api.gouv.fr/communes?lat=${this?.latitude}&lon=${this?.longitude}&fields=nom`, requestOptions)
+      fetch(`https://geo.api.gouv.fr/communes?lat=${this?.latitude}&lon=${this?.longitude}&fields=nom,codesPostal`, requestOptions)
         .then(response => response.text())
         .then(result => {
           let response = JSON.parse(result)
           this.ville = response[0]['nom'];
+          this.code = response[0]['code']
+          console.log(this.code)
         })
         .catch(error => console.log('error', error));
     };
@@ -73,6 +76,7 @@ export default {
   methods: {
     getVille(ville) {
       this.ville = ville['nom']
+      this.code = ville['code']
       this.longitude = ville['centre']['coordinates'][0]
       this.latitude = ville['centre']['coordinates'][1]
       console.log(this.latitude, this.longitude);

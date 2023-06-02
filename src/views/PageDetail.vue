@@ -15,6 +15,12 @@
     <DetailPotabilite :code_postal="code" />
     <DetailQualite />
     <DetailPage />
+    <v-row justify="center" class="">
+      <v-col cols="12" class="text-center">
+        <v-img src="@/assets/inf-eau.png" width="125" class="mt-1 mx-auto"/>
+      </v-col>
+    </v-row>
+    
   </v-container>
 </template>
 

@@ -8,24 +8,24 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="11" class="d-flex justify-center align-center">
-        <RechercheVille @searched="getVille"/>
+        <RechercheVille @searched="getVille" />
       </v-col>
     </v-row>
-    <DetailTemperature/>
-    <DetailPotabilite/>
-    <DetailQualite/>
-    <DetailPage/>
+    <DetailTemperature :longitude="longitude" :latitude="latitude"/>
+    <DetailPotabilite />
+    <DetailQualite />
+    <DetailPage />
   </v-container>
 </template>
 
 <script>
 import DetailPage from "@/components/DetailPage.vue";
-import RechercheVille from "@/components/RechercheVille.vue";
 import DetailPotabilite from "@/components/DetailPotabilite.vue";
 import DetailQualite from "@/components/DetailQualite.vue";
 import DetailTemperature from "@/components/DetailTemperature.vue";
+import RechercheVille from "@/components/RechercheVille.vue";
 
-export default{
+export default {
   name: "PageDetail",
 
   components: {
@@ -36,7 +36,7 @@ export default{
     DetailTemperature,
   },
 
-  data(){
+  data() {
     return {
       ville: "",
       latitude: null,
@@ -44,9 +44,9 @@ export default{
     }
   },
 
-  created(){
+  created() {
     const success = (position) => {
-      this.latitude  = position.coords.latitude;
+      this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
 
       let requestOptions = {
@@ -71,8 +71,11 @@ export default{
   },
 
   methods: {
-    getVille(ville){
+    getVille(ville) {
       this.ville = ville['nom']
+      this.longitude = ville['centre']['coordinates'][0]
+      this.latitude = ville['centre']['coordinates'][1]
+      console.log(this.latitude, this.longitude);
     },
   }
 };

@@ -1,4 +1,5 @@
 <template>
+  <v-btn color="success">text</v-btn>
   <v-container>
     <v-row justify="center" class="mt-5">
       <v-col cols="12" class="text-center">

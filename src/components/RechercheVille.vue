@@ -3,6 +3,8 @@
     label="Rechercher"
     placeholder="Bourg-En-Bresse"
     v-model="ville"
+    hide-no-data
+    hide-details
     id="search"
     :items="searched"
     @update:search="search_city"

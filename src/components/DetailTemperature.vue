@@ -1,13 +1,19 @@
 <template>
-  <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
-  <v-card v-else class="mx-1 mt-2">
+  <v-progress-circular v-if="loading" indeterminate color="white"></v-progress-circular>
+  <v-card v-else class="mx-1 mt-2" color="#20345c">
     <div v-if="nomEau !== null">
       <v-row class="mx-1 mt-1" justify="space-between">
-        <v-col cols="10" class="text-body-1" align-self="center"><span class="font-weight-bold">{{ nomEau
-        }}</span></v-col>
+        <v-col cols="12" class="text-body-1 text-center" align-self="center">
+          <span class="font-weight-bold text-white">{{ nomEau }}</span>
+        </v-col>
       </v-row>
       <v-row class="ma-1" justify="space-between">
-        <v-col cols="8" class="text-body-1" align-self="center">Température :</v-col>
+        <v-col cols="7" class="text-body-1" align-self="center">
+          <v-icon icon="mdi-thermometer" class="mr-1" color="white"/>
+          <span class="text-white">
+            Température :
+          </span>
+        </v-col>
         <v-col cols="4" class="text-h5" :style='getColorFromTemperature()'>{{ temperature }}°</v-col>
       </v-row>
     </div>
@@ -78,7 +84,7 @@ export default {
     },
 
     getColorFromTemperature() {
-      let color = this.temperature < 20 ? 'blue' :
+      let color = this.temperature < 20 ? '#09e9f1' :
         this.temperature < 26 ? 'orange' :
           'red'
       return "color: " + color

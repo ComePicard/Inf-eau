@@ -2,8 +2,8 @@
   <v-container>
     <v-row justify="center" class="mt-5">
       <v-col cols="12" class="text-center">
-        <span v-if="ville" class="text-h4">{{ ville }}</span>
-        <v-progress-circular v-else indeterminate></v-progress-circular>
+        <span v-if="ville" class="text-h4 text-white">{{ ville }}</span>
+        <v-progress-circular v-else indeterminate color="white"></v-progress-circular>
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -11,7 +11,7 @@
         <RechercheVille @searched="getVille" />
       </v-col>
     </v-row>
-    <DetailTemperature :longitude="longitude" :latitude="latitude"/>
+    <DetailTemperature :longitude="longitude" :latitude="latitude" class="mt-16"/>
     <DetailPotabilite :code_postal="code" />
     <DetailQualite />
     <DetailPage />
@@ -84,3 +84,9 @@ export default {
   }
 };
 </script>
+
+<style>
+body{
+  background-color: #345ca8
+}
+</style>

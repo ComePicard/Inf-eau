@@ -1,11 +1,15 @@
 <template>
-  <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
-  <v-card v-else class="mx-1 mt-2">
+  <v-progress-circular v-if="loading" indeterminate color="white"></v-progress-circular>
+  <v-card v-else class="mx-1 mt-2" color="#20345c">
     <v-row class="ma-1" justify="space-between">
-      <v-col cols="8" class="text-body-1" align-self="center">Potabilité</v-col>
-      <v-col cols="4" class="text-h5" :style='potable ? "color: green" : "color: red"'>{{
+      <v-col cols="8" class="text-body-1" align-self="center">
+        <v-icon icon="mdi-cup-water" color="white" class="mr-1"/>
+          <span class="text-white">Potabilité :</span>
+        </v-col>
+      <v-col cols="4" class="text-h5" :style='potable ? "color: #16a249" : "color: red"'>{{
           potable ? 'Oui' : 'Non'
         }}
+      <v-icon :icon='potable ? "mdi-water-check" : "mdi-water-remove"' :color='potable ? "color: #16a249" : "color: red"' :class="potable ? '' : 'ml-n2'"/>
       </v-col>
     </v-row>
   </v-card>

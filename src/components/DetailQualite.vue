@@ -1,6 +1,5 @@
 <template>
   <v-card class="mx-1 mt-2">
-    🕵️‍♀️
   </v-card>
 </template>
 
